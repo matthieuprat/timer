@@ -18,7 +18,8 @@
   <body>
     <div></div>
     <script>
-      var t = 3605
+      var p = p => decodeURI((new RegExp(`[#&]${p}=([^&]*)`).exec(window.location.hash) || [])[1] || '')
+      var t = p('t')
       var e = document.getElementsByTagName('div')[0]
       var tid = setInterval(() => {
         e.innerText = [~~(t/3600), ~~(t/60) % 60, t % 60]
