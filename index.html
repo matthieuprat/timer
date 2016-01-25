@@ -19,7 +19,7 @@
     <div></div>
     <script>
       var p = p => decodeURI((new RegExp(`[#&]${p}=([^&]*)`).exec(window.location.hash) || [])[1] || '')
-      var t = p('t')
+      var t = p('t') || 3600
       var e = document.getElementsByTagName('div')[0]
       var tid = setInterval(() => {
         e.innerText = [t/3600, t/60 % 60, t % 60]
