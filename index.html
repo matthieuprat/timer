@@ -22,7 +22,8 @@
       var t = p('t')
       var e = document.getElementsByTagName('div')[0]
       var tid = setInterval(() => {
-        e.innerText = [~~(t/3600), ~~(t/60) % 60, t % 60]
+        e.innerText = [t/3600, t/60 % 60, t % 60]
+          .map(t => 0|t)
           .reduce((a, t) => ((a.length || t) && a.push(t), a), [])
           .map(t => ('0' + t).slice(-2))
           .join(':') || '00'
