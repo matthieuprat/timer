@@ -34,7 +34,7 @@
       }
       displayTimer()
       var tid = setInterval(() => {
-        --t < 0 && clearInterval(tid)
+        --t < 1 && clearInterval(tid)
         displayTimer()
       }, 1000)
     </script>
