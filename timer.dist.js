@@ -101,6 +101,9 @@ document.addEventListener('keypress', function (e) {
     elt.select();
   }
 });
+elt.addEventListener('keypress', function (e) {
+  return e.keyIdentifier === 'Enter' && elt.blur();
+});
 
 elt.value = timer.toString();
 timer.start();

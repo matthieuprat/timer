@@ -57,6 +57,7 @@ document.addEventListener('keypress', (e) => {
     elt.select()
   }
 })
+elt.addEventListener('keypress', (e) => e.keyIdentifier === 'Enter' && elt.blur())
 
 elt.value = timer.toString()
 timer.start()
