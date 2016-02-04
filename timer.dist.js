@@ -91,5 +91,16 @@ elt.addEventListener('blur', function () {
   timer.reset(Timer.parse(elt.value));
   timer.start();
 });
+document.addEventListener('keypress', function (e) {
+  if (e.keyCode !== 32) return;
+  e.preventDefault();
+  if (elt === document.activeElement) {
+    elt.blur();
+  } else {
+    elt.focus();
+    elt.select();
+  }
+});
+
 elt.value = timer.toString();
 timer.start();
