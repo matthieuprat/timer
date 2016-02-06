@@ -4,6 +4,7 @@ class Timer {
   }
   start (t) {
     if (t !== undefined) this.reset(t)
+    this.cb(this)
     if (this.tid !== undefined) return
     this.tid = setInterval(() => {
       this.cb(this)
@@ -59,4 +60,3 @@ document.addEventListener('keypress', (e) => {
 elt.addEventListener('keypress', (e) => e.keyIdentifier === 'Enter' && elt.blur())
 
 timer.start(p('t') || '3600')
-elt.value = timer.toString()
