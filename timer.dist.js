@@ -5,18 +5,18 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Timer = function () {
-  function Timer(t, cb) {
+  function Timer(cb) {
     _classCallCheck(this, Timer);
 
-    this.reset(t);
     this.cb = cb;
   }
 
   _createClass(Timer, [{
     key: 'start',
-    value: function start() {
+    value: function start(t) {
       var _this = this;
 
+      if (t !== undefined) this.reset(t);
       if (this.tid !== undefined) return;
       this.tid = setInterval(function () {
         _this.cb(_this);
@@ -80,7 +80,7 @@ var p = function p(_p) {
   return decodeURI((new RegExp('[#&]' + _p + '=([^&]*)').exec(window.location.hash) || [])[1] || '');
 };
 var elt = document.getElementsByTagName('input')[0];
-var timer = new Timer(Timer.parse(p('t') || '3600'), function (t) {
+var timer = new Timer(function (t) {
   elt.value = t.toString();
 });
 
@@ -88,9 +88,9 @@ elt.addEventListener('focus', function () {
   return timer.stop();
 });
 elt.addEventListener('blur', function () {
-  timer.reset(Timer.parse(elt.value));
-  timer.start();
+  return timer.start(Timer.parse(elt.value));
 });
+
 document.addEventListener('keypress', function (e) {
   if (e.keyCode !== 32) return;
   e.preventDefault();
@@ -105,5 +105,5 @@ elt.addEventListener('keypress', function (e) {
   return e.keyIdentifier === 'Enter' && elt.blur();
 });
 
+timer.start(Timer.parse(p('t') || '3600'));
 elt.value = timer.toString();
-timer.start();
