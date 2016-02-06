@@ -78,33 +78,33 @@ var Timer = function () {
   return Timer;
 }();
 
-var p = function p(_p) {
-  return decodeURI((new RegExp('[#&]' + _p + '=([^&]*)').exec(window.location.hash) || [])[1] || '');
+var param = function param(p) {
+  return decodeURI((new RegExp('[#&]' + p + '=([^&]*)').exec(window.location.hash) || [])[1] || '');
 };
-var elt = document.getElementsByTagName('input')[0];
+var input = document.getElementsByTagName('input')[0];
 var timer = new Timer(function (t) {
-  elt.value = t.toString();
+  input.value = t.toString();
 });
 
-elt.addEventListener('focus', function () {
+input.addEventListener('focus', function () {
   return timer.stop();
 });
-elt.addEventListener('blur', function () {
-  return timer.start(elt.value);
+input.addEventListener('blur', function () {
+  return timer.start(input.value);
 });
 
+input.addEventListener('keypress', function (e) {
+  return e.keyIdentifier === 'Enter' && input.blur();
+});
 document.addEventListener('keypress', function (e) {
   if (e.keyCode !== 32) return;
   e.preventDefault();
-  if (elt === document.activeElement) {
-    elt.blur();
+  if (input === document.activeElement) {
+    input.blur();
   } else {
-    elt.focus();
-    elt.select();
+    input.focus();
+    input.select();
   }
 });
-elt.addEventListener('keypress', function (e) {
-  return e.keyIdentifier === 'Enter' && elt.blur();
-});
 
-timer.start(p('t') || '3600');
+timer.start(param('t') || 3600);

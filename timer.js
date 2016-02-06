@@ -40,23 +40,23 @@ class Timer {
   }
 }
 
-const p = p => decodeURI((new RegExp(`[#&]${p}=([^&]*)`).exec(window.location.hash) || [])[1] || '')
-const elt = document.getElementsByTagName('input')[0]
-const timer = new Timer(t => { elt.value = t.toString() })
+const param = p => decodeURI((new RegExp(`[#&]${p}=([^&]*)`).exec(window.location.hash) || [])[1] || '')
+const input = document.getElementsByTagName('input')[0]
+const timer = new Timer(t => { input.value = t.toString() })
 
-elt.addEventListener('focus', () => timer.stop())
-elt.addEventListener('blur', () => timer.start(elt.value))
+input.addEventListener('focus', () => timer.stop())
+input.addEventListener('blur', () => timer.start(input.value))
 
+input.addEventListener('keypress', (e) => e.keyIdentifier === 'Enter' && input.blur())
 document.addEventListener('keypress', (e) => {
   if (e.keyCode !== 32) return
   e.preventDefault()
-  if (elt === document.activeElement) {
-    elt.blur()
+  if (input === document.activeElement) {
+    input.blur()
   } else {
-    elt.focus()
-    elt.select()
+    input.focus()
+    input.select()
   }
 })
-elt.addEventListener('keypress', (e) => e.keyIdentifier === 'Enter' && elt.blur())
 
-timer.start(p('t') || '3600')
+timer.start(param('t') || 3600)
