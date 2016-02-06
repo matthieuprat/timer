@@ -15,6 +15,7 @@ class Timer {
     this.tid = undefined
   }
   reset (t = 0) {
+    if (typeof t === 'string') t = Timer.parse(t)
     this.to = Timer.now(t)
   }
   time () {
@@ -43,7 +44,7 @@ const elt = document.getElementsByTagName('input')[0]
 const timer = new Timer(t => { elt.value = t.toString() })
 
 elt.addEventListener('focus', () => timer.stop())
-elt.addEventListener('blur',  () => timer.start(Timer.parse(elt.value)))
+elt.addEventListener('blur', () => timer.start(elt.value))
 
 document.addEventListener('keypress', (e) => {
   if (e.keyCode !== 32) return
@@ -57,5 +58,5 @@ document.addEventListener('keypress', (e) => {
 })
 elt.addEventListener('keypress', (e) => e.keyIdentifier === 'Enter' && elt.blur())
 
-timer.start(Timer.parse(p('t') || '3600'))
+timer.start(p('t') || '3600')
 elt.value = timer.toString()

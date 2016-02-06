@@ -34,6 +34,7 @@ var Timer = function () {
     value: function reset() {
       var t = arguments.length <= 0 || arguments[0] === undefined ? 0 : arguments[0];
 
+      if (typeof t === 'string') t = Timer.parse(t);
       this.to = Timer.now(t);
     }
   }, {
@@ -88,7 +89,7 @@ elt.addEventListener('focus', function () {
   return timer.stop();
 });
 elt.addEventListener('blur', function () {
-  return timer.start(Timer.parse(elt.value));
+  return timer.start(elt.value);
 });
 
 document.addEventListener('keypress', function (e) {
@@ -105,5 +106,5 @@ elt.addEventListener('keypress', function (e) {
   return e.keyIdentifier === 'Enter' && elt.blur();
 });
 
-timer.start(Timer.parse(p('t') || '3600'));
+timer.start(p('t') || '3600');
 elt.value = timer.toString();
